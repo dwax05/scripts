@@ -1,0 +1,28 @@
+#!/bin/sh
+
+walldir="$HOME/.local/wallpapers/unsorted"
+maxpage=3
+if [ -z $1 ]; then
+    echo "invalid usage"
+    exit
+else
+    query=$1
+fi
+
+# sortoptions="date_added\nrelevance\nrandom\nviews\nfavorites\ntoplist"
+# sorting=$(echo -e $sortoptions | sed -n '5p')
+sorting="toplist"
+
+query="$(sed 's/#//g' <<<$query)"
+query="$(sed 's/ /+/g' <<<$query)"
+echo $query
+mkdir -p $walldir/$query
+
+notify-send "Downloading Wallpapers"
+for i in $(seq 1 $maxpage); do
+    curl -s https://wallhaven.cc/api/v1/search\?atleast\=2560x1600\&sorting\=$sorting\&q\=$query\&page\=$i > $walldir/tmp.txt
+    page=$(cat $walldir/tmp.txt | jq '.' | grep -Eoh "https:\/\/w\.wallhaven.cc\/full\/.*(jpg|png)\b")
+    wget -nc -P $walldir/$query $page
+done
+rm $walldir/tmp.txt
+notify-send "Download Complete"

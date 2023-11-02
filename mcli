@@ -3,7 +3,7 @@
 MCLI_VERSION="4.1.1"
 
 config_file="$HOME/.config/mcli/config"
-config_editor=${VISUAL:-${EDITOR}}
+config_editor=${EDITOR}
 
 if [ "$1" = "--edit" ] || [ "$1" = "-e" ]; then
     if [ -f "$config_file" ]; then
@@ -447,16 +447,16 @@ usage() {
                     else
                         if [ -n "$subs_links" ]; then
                             if [ "$quiet_output" = 1 ]; then
-                                [ -z "$resume_from" ] && mpv --quiet "$subs_arg"="$subs_links" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
-                                [ -n "$resume_from" ] && mpv --quiet "$subs_arg"="$subs_links" --start="$resume_from" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
+                                [ -z "$resume_from" ] && mpv "$subs_arg"="$subs_links" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
+                                [ -n "$resume_from" ] && mpv "$subs_arg"="$subs_links" --start="$resume_from" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
                             else
                                 [ -z "$resume_from" ] && mpv "$subs_arg"="$subs_links" --force-media-title="$displayed_title" "$video_link"
                                 [ -n "$resume_from" ] && mpv "$subs_arg"="$subs_links" --start="$resume_from" --force-media-title="$displayed_title" "$video_link"
                             fi
                         else
                             if [ "$quiet_output" = 1 ]; then
-                                [ -z "$resume_from" ] && mpv --quiet --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
-                                [ -n "$resume_from" ] && mpv --quiet --start="$resume_from" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
+                                [ -z "$resume_from" ] && mpv --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
+                                [ -n "$resume_from" ] && mpv --start="$resume_from" --force-media-title="$displayed_title" "$video_link" >/dev/null 2>&1
                             else
                                 [ -z "$resume_from" ] && mpv --force-media-title="$displayed_title" "$video_link"
                                 [ -n "$resume_from" ] && mpv --start="$resume_from" --force-media-title="$displayed_title" "$video_link"

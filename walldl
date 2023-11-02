@@ -6,7 +6,7 @@ if [ -z $1 ]; then
     echo "invalid usage"
     exit
 else
-    query=$1
+    query="$@"
 fi
 
 # sortoptions="date_added\nrelevance\nrandom\nviews\nfavorites\ntoplist"
